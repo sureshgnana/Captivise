@@ -1,0 +1,2 @@
+class InvalidMicroAmount(Exception):
+    pass

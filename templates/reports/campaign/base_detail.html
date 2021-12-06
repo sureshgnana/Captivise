@@ -1,0 +1,36 @@
+{% extends "reports/campaign/base_campaign.html" %}
+
+{% block campaign_content %}
+
+    <div class="col-md-12">
+        <div class="row">	
+            <div class="col-sm-12 col-md-12 col-lg-4 pl-0"><h3>Conversion Performance</h3></div>            
+                {% if has_adwords_account %}
+                    {% include 'reports/conversions_chart.html' with metrics=metrics date_range_form=date_range_form %}
+                {% else %}
+                    {% include 'reports/no_linked_adwords_account.html' %}
+                {% endif %}            
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 pl-0" add-class-on-xs="pb-3">
+            <a class="rlink border-bottom-0 {% if active_menu.campaign_keywords %}btn-active{% endif %}" href="{% url 'reports_campaign_detail' campaign.id %}">Keywords</a>
+        </div>
+        <div class="col-md-3 pl-0">
+            <a class="rlink border-bottom-0 {% if active_menu.campaign_runs %}btn-active{% endif %}" href="{% url 'reports_campaign_detail_runs' campaign.id %}">Runs</a>
+        </div>	
+        <div class="col-md-12 border-bottom-green mb-4"></div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="table-responsive mt-4">
+                {% if has_adwords_account %}
+        {% block table_content %}{% endblock table_content %}
+    {% else %}
+        {% include 'reports/no_linked_adwords_account.html' %}
+    {% endif %}
+            </div>
+        </div>
+    </div>   
+
+{% endblock campaign_content %}

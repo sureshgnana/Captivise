@@ -1,0 +1,167 @@
+{% extends "reports/campaign/base_campaign.html" %}
+
+{% block campaign_content %}
+
+<div class="row justify-content-center">
+    <div class="col-xs-12 col-sm-12 col-md-5">
+
+        <div class="field-wrapper form-group ">
+            <h4>
+            Campaign Type:            
+            {{campaign.advertising_channel_type}}
+            </h4>
+            </div>
+
+            <form method="post">
+                {% csrf_token %}
+
+                {% if form.non_field_errors %}
+                    {% for err in form.non_field_errors %}
+                      <p>{{ err }}</p>
+                    {% endfor %}
+                {% endif %}
+
+                {% for hidden in form.hidden_fields %}
+                    {{ hidden }}
+                {% endfor %}
+                {% for field in form.visible_fields %}
+                    {% if forloop.counter == 2 %}<div class="js-form-remainder">{% endif %}
+                        <div class="field-wrapper form-group {% if field.errors %} errors{% endif %}{% if field.id_for_label == 'id_target_cpa' %} left{% endif %}{% if field.id_for_label == 'id_target_conversion_margin' %} right{% endif %}" {% if field.id_for_label == 'id_target_roas' %} id="target_roas_blk" {% endif %}>
+                            {% if field.id_for_label == 'id_is_managed' %}
+                                {{ field.errors }}
+                                {{ field }}
+                                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                            {% else %}
+                                {{ field.errors }}
+                                <label for="{{ field.id_for_label }}">
+                                    {{ field.label }}
+
+                                    {% if field.help_text %}
+                                        <small>{{ field.help_text }}</small>
+                                    {% endif %}
+                                </label>
+
+                                {{ field }}
+                            {% endif %}
+                            {% if field.id_for_label == 'id_conversion_type_0' %}                            
+                         
+                                <div class="desc_conversion_type_0">
+                                    {{page_content_conv_lead.content |safe}} 
+                                    
+                                </div>                                
+                                <div class="desc_conversion_type_1">
+                                    {{page_content_conv_margin.content |safe}}                                    
+                                </div>
+                            
+                            {% endif %}
+                        </div>
+                {% endfor %}
+                {% if form.visible_fields|length >= 2 %}
+                </div>
+                {% endif %}
+                <hr>
+                <p class="bid-explainer">
+                    Please note: A keyword bid will only be changed if an
+                    individual keyword has 3 or more conversions, otherwise the
+                    average conversion rate across the campaign will be used.
+                </p>
+
+                
+
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6 pt-3">   
+                        <a href="{% url 'reports_campaign_detail' campaign.id %}" class="btn btn-block">Cancel</a>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6 pt-3">
+                        <button type="submit" class="btn btn-block">Save</button>
+                    </div>
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+   
+
+{% endblock campaign_content %}
+
+{% block extra_js %}
+    {{ block.super }}
+
+    {{ form.media.js }}
+    <script>
+    $(document).ready(function() {        
+        $('#uniform-id_cycle_period_days').find('.id_cycle_period_days').addClass('chart-range');
+        $('#id_target_cpa, #id_target_conversion_margin, #id_cycle_period_days, #id_max_cpc_limit, #id_target_conversion_rate, #id_target_roas').addClass('form-control');
+        $('#uniform-id_cycle_period_days').css('width','100%');
+        
+        campaign_type = "{{campaign.advertising_channel_type}}";
+        if(campaign_type == 'Shopping') {
+            $('#target_roas_blk').show();
+            $('.id_conversion_type_0').hide();
+            $("#id_conversion_type_0").prop("checked", false);
+            $("#id_conversion_type_1").prop("checked", true);
+            $('.id_conversion_type_1 .inner').css('border-width', '3px');
+            $('.desc_conversion_type_0').css('display', 'none');
+            $('.desc_conversion_type_1').css('display', 'block');
+            $('.check-1').remove();
+            $('#id_target_cpa').parent().hide();
+            $('#id_target_conversion_margin').parent().show();             
+        } else {
+            $('#target_roas_blk').hide();                  
+            
+        }
+
+        var checkedConversionType = $('#id_conversion_type :checked').val();
+
+        if (checkedConversionType !== undefined) {
+            if(checkedConversionType == "cpa") {
+                $('.id_conversion_type_0 .inner').css('border-width', '3px');
+                $('.desc_conversion_type_0').css('display', 'block');
+                $('.desc_conversion_type_1').css('display', 'none');
+                $('.check-2').remove();
+                $('.id_conversion_type_0 .inner label').before('<div class="check-1 con-check"><img src="/static/images/tick-mark-icon-png-7.png" width="30" alt="" /></div>');
+            }
+            if(checkedConversionType == "conversion_margin") {
+                $('.id_conversion_type_1 .inner').css('border-width', '3px');
+                $('.desc_conversion_type_0').css('display', 'none');
+                $('.desc_conversion_type_1').css('display', 'block');
+                $('.check-1').remove();
+                $('.id_conversion_type_1 .inner label').before('<div class="check-2 con-check"><img src="/static/images/tick-mark-icon-png-7.png" width="30" alt="" /></div>');
+            }
+        }
+        
+       
+    });
+    var maxHeight = 0;
+        $(".conversion-type .inner").each(function(){
+        if ($(this).height() > maxHeight) { maxHeight = $(this).height(); }
+        });
+        $(".conversion-type .inner").height(maxHeight);
+
+        
+
+  $('#id_conversion_type input').change(function () {
+    if($(this).val() == "cpa") {
+      $('.id_conversion_type_0 .inner').css('border-width', '3px');
+      $('.id_conversion_type_1 .inner').css('border-width', '1px');
+      $('.desc_conversion_type_0').css('display', 'block');
+      $('.desc_conversion_type_1').css('display', 'none');
+      $('.check-2').remove();
+      $('.id_conversion_type_0 .inner label').before('<div class="check-1 con-check"><img src="/static/images/tick-mark-icon-png-7.png" width="30" alt="" /></div>');
+      
+    }
+    if($(this).val() == "conversion_margin") {
+      $('.id_conversion_type_1 .inner').css('border-width', '3px');
+      $('.id_conversion_type_0 .inner').css('border-width', '1px');
+      $('.desc_conversion_type_0').css('display', 'none');
+      $('.desc_conversion_type_1').css('display', 'block');
+      $('.check-1').remove();
+      $('.id_conversion_type_1 .inner label').before('<div class="check-2 con-check"><img src="/static/images/tick-mark-icon-png-7.png" width="30" alt="" /></div>');
+      
+    }
+  });
+        
+    </script>
+{% endblock %}

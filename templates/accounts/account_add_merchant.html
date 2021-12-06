@@ -1,0 +1,73 @@
+{% extends "authenticated.html" %}
+
+{% block content %}
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-xs-12 col-sm-12 col-md-6">
+
+                {% if non_manager_account_selected %}
+                    <h2>Invalid Account Selected</h2>
+                    <div>
+                        <p>
+                            There has been a problem getting the AdWords account(s) for the selected Google Account. Please check whether the Google Account you have connected is an AdWords user.
+                        </p>
+
+                        <!--<p>
+                            If you don't have another choice, and/or don't know
+                            what a manager account is, please refer to
+                            <a href="https://support.google.com/adwords/answer/6139186?hl=en-GB">this</a>
+                            Google help article, for instructions on how to set one
+                            up.
+                        </p>-->
+                        <a href="{% url 'quoting_adwords_preamble' %}" class="btn">Go Back</a>
+                    </div>
+                {% elif form %}
+
+                    <h2>Select Merchant Account</h2>
+
+                    <form method="post">
+                        {% csrf_token %}
+
+                        {% if form.non_field_errors %}
+                            {% for err in form.non_field_errors %}
+                            <p>{{ err }}</p>
+                            {% endfor %}
+                        {% endif %}
+
+                        {% for hidden in form.hidden_fields %}
+                            {{ hidden }}
+                        {% endfor %}
+                        {% for field in form.visible_fields %}
+                            <div class="field-wrapper form-group {% if field.errors %}errors{% endif %}">
+                                {{ field.errors }}
+                                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                {{ field }}
+                            </div>
+                        {% endfor %}
+                        
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-6 col-md-6 pt-3">
+                                <a href="{% url 'accounts_account' %}" class="btn bnt-block">Cancel</a>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6 pt-3">
+                                <button class="btn bnt-block" type="submit" id="submit-btn">Save</button>
+                            </div>
+                        </div>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
+{% block extra_js %}
+<script>
+    $(document).ready(function() {
+        $("#submit-btn").click(function() {
+            var value = $("#id_merchant_id option:selected");
+            $("#id_merchant_name").val(value.text());
+        });
+    });
+</script>
+{% endblock extra_js %}

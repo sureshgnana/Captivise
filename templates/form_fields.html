@@ -1,0 +1,17 @@
+{% if form.non_field_errors %}
+	{% for err in form.non_field_errors %}
+		<p class="error non-field-errors">{{ err }}</p>
+	{% endfor %}
+{% endif %}
+
+{% for hidden in form.hidden_fields %}
+	{{ hidden }}
+{% endfor %}
+
+{% for field in form.visible_fields %}
+	<div class="form-group field-wrapper field-{{ field.id_for_label }} {% if field.errors %}errors{% endif %}">
+		{{ field.errors }}
+		<label for="{{ field.id_for_label }}">{{ field.label }}</label>
+		{{ field }}
+	</div>
+{% endfor %}

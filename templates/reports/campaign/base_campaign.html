@@ -1,0 +1,39 @@
+{% extends "authenticated.html" %}
+
+{% block content %}
+    <div class="container-fluid mt-5 px-6">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="row mb-4">
+                    <div class="col-md-12 pl-0">
+                        <h2>
+                            {{ campaign.title }}
+                            <small>
+                                ({% if not campaign.is_managed %}Not{% endif %} Managed By Captivise)
+                            </small>
+                            <span>
+                                Conversion Mode:
+                                {% if campaign.conversion_type == 'cpa' %}
+                                    <span>CPA</span>
+                                {% elif campaign.conversion_type == 'conversion_margin' %}
+                                    <span>Margins</span>
+                                {% else %}
+                                    <span>Unknown</span>
+                                {% endif %}
+                            </span>
+                        </h2>
+                    </div>
+                    <div class="col-md-3 pl-0" add-class-on-xs="pb-3">
+                        <a class="rlink border-bottom-0 {% if active_menu.campaign_overview %}btn-active{% endif %}" href="{% url 'reports_campaign_detail' campaign.id %}">Campaign Overview</a>
+                    </div>
+                    <div class="col-md-3 pl-0">
+                        <a class="rlink border-bottom-0 {% if active_menu.campaign_settings %}btn-active{% endif %}" href="{% url 'reports_campaign_detail_settings' campaign.id %}">Settings</a>
+                    </div>	
+                    <div class="col-md-12 border-bottom-green mb-4"></div>
+                </div>
+
+                {% block campaign_content %}{% endblock campaign_content %}
+            </div>
+        </div>
+    </div>
+{% endblock content %}

@@ -1,0 +1,307 @@
+{% extends "authenticated.html" %}
+{% load render_table from django_tables2 %}
+
+{% block content %}
+    <div class="container-fluid mt-5 px-6">
+        <div class="row justify-content-center">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="row">
+                    <div class="col-md-12 pl-0">
+                        <h2 class="mb-4">Campaigns</h2>
+                    </div>
+                    <div class="col-md-3 pl-0" add-class-on-xs="pb-3">
+                        <a class="rlink border-bottom-0 {% if active_menu.campaigns_filter_all %}btn-active{% endif %} " href="{% url 'reports_campaign_list' %}">All</a>
+                    </div>
+                    <div class="col-md-3 pl-0">
+                        <a class="rlink border-bottom-0 {% if active_menu.campaigns_filter_managed %}btn-active{% endif %}" href="{% url 'reports_campaign_list' %}?filter=managed">Managed</a>
+                    </div>	
+                    <div class="col-md-3 pl-0">
+                        <a class="rlink border-bottom-0 {% if active_menu.campaigns_filter_unmanaged %}btn-active{% endif %}" href="{% url 'reports_campaign_list' %}?filter=unmanaged">Unmanaged</a>
+                    </div>
+                    <div class="col-md-12 border-bottom-green mb-4"></div>                   
+                    
+                </div>
+
+                {% if has_adwords_account %}
+                                          
+                            <form method="post" id="fmr_script" action="{% url 'campaign_report_scripts_schedule' %}" onsubmit="return frmSubmit(this);" class="">
+                                {% csrf_token %}
+                                {% if active_menu.campaigns_filter_managed %}
+                                    <input type="hidden" name="active_menu" value="managed" />
+                                {% endif %}
+                                {% if active_menu.campaigns_filter_unmanaged %}
+                                    <input type="hidden" name="active_menu" value="unmanaged" />
+                                {% endif %}
+                                {% if order_by %}
+                                    <input type="hidden" name="sort" value="{{order_by}}" />
+                                {% endif %}
+                                {% if page %}
+                                    <input type="hidden" name="page" value="{{page}}" />
+                                {% endif %}
+                                <div class="row">  
+                                <div class="col-xs-2 col-md-3 pl-0 mb-2">
+                                        <select name="script_category" onchange="getScriptsByCategory(this.value)" id="script_category" autocomplete="off" class=" skip_these form-control" required>                                            
+                                            <option value="0">-All Campaign Types-</option>
+                                            {% for category in report_scripts_category %}
+                                                <option value="{{ category.id }}">{{ category.category_name }}</option>
+                                            {% endfor %}                       
+                                        </select>
+                                    </div>
+                                    <div class="col-xs-3 col-md-3 pl-0 mb-2">
+                                        <select name="script_id" id="script_id" autocomplete="off" class=" skip_these form-control" required>                                            
+                                            <option value="0">-All Automated Tasks-</option>
+                                            <option value="-1">All Automated Tasks - All Campaigns</option>
+                                            {% for report_script in report_scripts %}
+                                                <option value="{{ report_script.id }}">{{ report_script.name }}</option>
+                                            {% endfor %}                       
+                                        </select>
+                                    </div>
+                                    <div class="col-xs-2 col-md-2 pl-0 mb-2">
+                                        <select name="script_action" id="script_action" autocomplete="off" class="skip_these form-control" required>
+                                            <option value="">-Actions-</option>
+                                            <option value="1">Enable</option>
+                                            <option value="2">Disable</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-xs-2 col-md-1 mb-2 pl-0">
+                                        <button type="submit" title="Submit" name="submit" class="btn">Submit</button>
+                                    </div>
+                                    <div class="col-md-3 pl-0">
+                                        <div class="float-lg-right">
+                                            <input type="submit" id="schedule_for_all" onclick="applyForAll()" name="schedule_for_all" title="Schedule for All Campaigns" value="Schedule for All Campaigns" class="btn">
+                                        </div>
+                                    </div>
+                                </div>
+                               
+                                  {% load bootstrap4 %}
+
+					{% if filter %}
+					
+					
+					<div class="{% if show_filter is None %} d-none{% endif %}" id="filter-content">
+						<div class="col-md-12 pl-0 mt-4"></div><div class="col-md-12 pl-0 mt-4"></div><div class="col-md-12 pl-0 mt-4"></div>  	
+						<div class="col-md-12 border-bottom-green mb-4"></div>    
+							<div class="row">
+								<div class="col-md-3">
+									<div class="form-group">
+									<label for="input1">{{ filter.form.name.label_tag}}</label>
+									{{ filter.form.name}}
+								</div>
+								</div>
+								<div class="col-md-3">
+									<div class="form-group">
+									<label for="input2">{{ filter.form.campaign_type.label_tag}}</label>
+									{{ filter.form.campaign_type}}
+								</div>
+								</div>
+								<div class="col-md-3">
+									<div class="form-group">
+									<label for="input3">{{ filter.form.status.label_tag}}</label>
+									{{ filter.form.status}}
+								</div>
+								</div>
+								                               
+							</div>
+						<div class="row mb-4">
+							<div class="col-md-12 pl-0 mt-4">
+								<div class="col-md-2 float-right ml-2 mb-2">
+								<a href="{% url 'reports_campaign_list' %}" class="btn ">Reset</a>
+								</div>
+								<div class="col-md-2 float-right mb-2">
+								<input type="submit" name="search" onclick="applyForNone()" class="btn " value="Apply Filter">
+								</div>
+							</div>
+						</div>                        
+				
+						 
+					 </div>{% endif %}
+					 <div class="row">
+						<div class="col-md-12 mt-4">
+						<div class="col-md-2 float-right">
+							<button class="btn btn-success collapsed " type="button" id="filter" data-toggle="collapse" data-target="#filter-content" aria-expanded="false">
+								<i class="fa fa-filter"></i>  Filter
+							</button>
+						</div>
+					</div>
+					</div>
+                    
+                     
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                        <div class="table-responsive mt-4">
+                                            {% render_table campaigns %}
+                                        </div>
+                                    </div>
+                                </div>
+                                                       
+                    </form> 
+                {% else %}
+                    {% include 'reports/no_linked_adwords_account.html' %}
+                {% endif %}
+            </div>
+        </div>    
+    </div>    
+<div class="modal" id="script_status_modal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title"><span id="campaign_name"> </span> - Automated Task Status</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+            <table class="table" id="script_content">
+                <thead >
+                    <tr>                    
+                        <th>                            
+                            Automated Task                          
+                        </th>
+                    
+                        <th class="orderable">                            
+                                Status                            
+                        </th>                
+                    </tr>
+                </thead> 
+                <tbody >
+                    
+                                  
+                
+                </tbody>
+        </table>
+            
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}
+{% block extra_js %}
+            <script type="text/javascript">
+                $(document).ready(function(){
+                 $('#uniform-id_status span').css('display','none');
+                 $('#uniform-id_campaign_type span').css('display','none');
+                 $('#script_id').prop('required',true);
+                   if(!$('#script_id').attr('required')) {
+                    $('#script_id').prop('required',true);
+                    $('#script_action').prop('required',true);
+                    }
+
+		    $("#filter").click(function(){
+		      $("#filter-content").toggleClass("d-block");
+			});
+			function filterSubmit() {
+			return true;	
+			}
+		  });
+		  
+                function toggle(source) {
+                    $("input[type=checkbox]").prop('checked', $(source).prop('checked'));
+                }
+                function applyForAll() {
+                    $('#script_action').val('1');
+                    $('#script_id').val('-1');
+                }
+                var clicked = '';
+                 function applyForNone() {
+                    $('#script_action').val('');
+                    $('#script_id').val('-1');
+                    $('#script_id').prop('required',false);
+                    $('#script_action').prop('required',false);
+                    $('#fmr_script').attr('action', "{% url 'reports_campaign_list' %}");
+                    $('#fmr_script').attr('method', "get");
+                    clicked = 'Apply Filter'
+                }
+                
+                function frmSubmit() {
+                    
+                    script_action = $('#script_action').val();
+
+                    if (clicked == "Apply Filter") { 
+                        return true;
+                    }
+                    script_id = $('#script_id').val();
+                    confirm_msg = 'Are you sure?';
+                    if(script_action == 1) {
+                        $('#fmr_script').attr('action', '/campaigns/report_scripts/schedule');
+                        //confirm_msg = 'Are you sure? If automated task is not enabled, please enable it before scheduling';
+                    }
+                    else if(script_action == 3) {
+                        $('#fmr_script').attr('action', '/campaigns/report_scripts/enable');
+                    }
+                    else if(script_action == 2) {
+                        $('#fmr_script').attr('action', '/campaigns/report_scripts/disable');
+                    }         
+                        
+
+                    if(script_id != "-1" && $("input[type=checkbox]:checked").length == 0) {
+                        alert("Choose at least one record");
+                        return false;
+                    }
+                    
+                    if(confirm(confirm_msg)) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                    
+                }
+                function getScriptStatus(campaign_id) {    
+                        
+                       
+
+                        // AJAX request
+                        $.ajax({
+                        url: "{% url 'campaign_report_scripts_status' %}",
+                        type: 'post',
+                        data: {campaign_id: campaign_id, csrfmiddlewaretoken:'{{ csrf_token }}'},
+                        dataType:'json',
+                        success: function(response){ 
+                            
+                            result = response.result;
+                            tableData = '';
+                            $.each(result, function(index, data) {
+                                tableData += '<tr><td>'+data.script_name+'</td><td>'+data.status+'</td></tr>';
+                            });
+                            $('#script_content tbody').html('');
+                            $('#script_content tbody').append(tableData);
+                            $('#campaign_name').html(response.campaign_name);
+                            // Add response in Modal body
+                            $('.modal-body').html(response.output);
+                            // Display Modal
+                            $('#script_status_modal').modal('show'); 
+                        }
+                        });
+
+                }
+                function getScriptsByCategory(category_id) {    
+                        
+                       
+
+                        // AJAX request
+                        $.ajax({
+                        url: "{% url 'campaign_report_scripts_category' %}",
+                        type: 'post',
+                        data: {category_id: category_id, csrfmiddlewaretoken:'{{ csrf_token }}'},
+                        dataType:'json',
+                        success: function(response){ 
+                            
+                            result = response.result;
+                            scriptData = '';
+                            if(category_id == "0"){
+                            scriptData += '<option value="0">-All Automated Tasks-</option><option value="-1">All Automated Tasks - All Campaigns</option>';
+                            }
+                            if(result != ''){
+                            $.each(result, function(index, data) {
+                                scriptData += '<option value='+data.script_id+'>'+data.script_name+'</option>';
+                            });
+			     }else{
+			         scriptData = '';
+			     }
+                            $('#script_id').html(scriptData);
+                        }
+                        });
+
+                }
+            </script>
+{% endblock extra_js %}

@@ -1,0 +1,33 @@
+{% extends "authenticated.html" %}
+{% load render_table from django_tables2 %}
+
+{% block content %}
+    <div class="container-fluid mt-5 px-6">
+        <div class="row justify-content-center">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="row">	
+                    <div class="col-md-4 pl-0">
+                        <h2 class="mb-4">Payments</h2>
+                    </div>
+                    <div class="col-md-5 pl-0">
+                        <h4 class="mb-4">Total Spend on Captivise &pound;</h4>
+                    </div>
+                    <div class="col-md-3 pl-0">
+                        <div class="float-right">
+                            <a class="btn" href="{% url 'quoting_proceed_to_payment_gateway' %}">
+                                Update Payment Details
+                            </a>
+                        </div>
+                    </div>						
+                </div>   
+                {% if has_adwords_account %}
+                    <div class="table-responsive">               
+                        {% render_table payment_list %}
+                    </div>
+                {% else %}
+                    {% include 'reports/no_linked_adwords_account.html' %}
+                {% endif %}
+            </div>
+        </div>
+    </div>    
+{% endblock content %}

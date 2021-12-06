@@ -1,0 +1,309 @@
+.date-picker {
+	position: absolute;
+	right: 0;
+	top: 0;
+	* {
+		float: left;
+		color: $grey_3;
+	}
+
+	.or {
+		line-height: 40px;
+		margin-left: 10px;
+	}
+
+	div.selector {
+		font-size: 100%;
+		z-index: 1;
+		margin-left: 10px;
+
+		&:focus {
+			z-index: 2;
+			color: black;
+		}
+
+		span {
+			color: $grey_3;
+			font-family: 'Open Sans', sans-serif;
+			height: 40px;
+			line-height: 40px;
+			-webkit-font-smoothing: auto;
+		}
+	}
+
+	label {
+		height: 0;
+		width: 0;
+		overflow: hidden;
+		display: block;
+	}
+
+	.hasDatepicker {
+		border: 1px solid $grey_2;
+		width: 135px;
+		padding: 0 10px;
+		height: 40px;
+		line-height: 40px;
+		background: url('../svgs/calendar.svg') right 10px center no-repeat;
+		background-size: auto 20px;
+		outline: none;
+		position: relative;
+		z-index: 1;
+		font-family: 'Open Sans', sans-serif;
+
+		&:hover {
+			background-color: $grey_1;
+		}
+
+		+ label + .hasDatepicker {
+			margin-left: -1px;
+		}
+
+		&:focus {
+			border-color: #000;
+			color: #000;
+			z-index: 2;
+		}
+	}
+
+	button[type='submit'] {
+		border: 1px solid $grey_2;
+		padding: 0;
+		display: block;
+		width: 40px;
+		height: 0;
+		padding-top: 38px;
+		overflow: hidden;
+		background: transparent url('../svgs/icon-refresh.svg') center center no-repeat;
+		background-size: auto 20px;
+		margin-left: 10px;
+		outline: none;
+
+		&:hover {
+			background-color: $grey_1;
+		}
+
+		&:focus {
+			border-color: #000;
+			color: #000;
+		}
+	}
+}
+
+.ui-datepicker {
+	border: 1px solid #000;
+	background-color: #fff;
+	padding: 10px;
+	font-size: 12px;
+	z-index: 2;
+	margin-top: -1px;
+	display: none;
+
+	.ui-datepicker-header {
+		a {
+			color: $brand_primary-colour;
+			font-weight: bold;
+		}
+	}
+
+	.ui-datepicker-next {
+		float: right;
+	}
+
+	.ui-datepicker-title {
+		text-align: center;
+		line-height: 20px;
+		border-top: 1px solid $grey_1;
+		border-bottom: 1px solid $grey_1;
+		margin: 10px 0;
+	}
+}
+
+.ui-datepicker-calendar {
+	border-collapse: collapse;
+	color: $grey_2;
+
+	th {
+		font-weight: normal;
+	}
+
+	td {
+		text-align: center;
+		width: 20px;
+		height: 20px;
+		line-height: 20px;
+		padding: 0;
+		margin: 0;
+	}
+
+	a {
+		text-decoration: none;
+		display: block;
+		color: #000;
+
+		&.ui-state-active {
+			background-color: $brand_primary-colour;
+			color: #fff;
+		}
+
+		&:hover {
+			background-color: $grey_2;
+			font-weight: bold;
+		}
+	}
+}
+
+
+.errorlist {
+	list-style-type: none;
+	padding: 0;
+	margin: 15px 0 0;
+	background-color: rgba($color_error,0.1);
+	color: $color_error;
+
+	.graph-and-picker & {
+		float: left;
+		margin-top: 0;
+	}
+
+	li {
+		padding: 12px 20px;
+	}
+
+	+ label {
+		color: $color_error;
+
+		input {
+			border-color: $color_error;
+		}
+	}
+}
+
+// Auto Signup styles
+.field-id_password1, .field-id_password2 {
+	width: 100%;
+}
+
+.field-id_password1 {
+	float: left;
+}
+
+.field-id_password2 {
+	float: right;
+}
+
+#id_terms_and_conditions_accepted {
+	display: block;
+	position: relative;
+	top: 40px;
+	left: 10px;
+}
+
+.agree {
+
+	a {
+		color: $brand_primary-colour;
+	}
+
+	button {
+		margin: 20px 0 0 0;
+	}
+}
+
+.account-ready {
+
+	.agree {
+
+		input[type='checkbox'] {
+
+
+			&:checked {
+				+ label {
+					&:before {
+						content: '✓';
+						color: $brand_primary-colour;
+					}
+				}
+			}
+		}
+	}
+}
+
+@include breakpoint(tablet) {
+
+	.field-id_password1, .field-id_password2 {
+		width: 48%;
+	}
+}
+
+#uniform-id_client_customer {
+	width: 100%!important;
+}
+
+.results {
+	padding-left:0;
+	margin: 50px 0 0 0;
+
+	li {
+		list-style: none;
+		position: relative;
+		height: 40px;
+		overflow: hidden;
+		margin: 0 0 50px 0;
+		padding-left: 60px;
+
+		span {
+			content:'';
+			position:absolute;
+			left: 0;
+			top: 0;
+			width: 40px;
+			height: 40px;
+			background: transparent url('../svgs/warning-exc.svg') center center no-repeat;
+			background-size: auto 40px;
+		}
+
+		p {
+			word-wrap: break-word;
+			@include vertical-align;
+			margin: 0;
+		}
+
+		.set-up {
+			content:'';
+			position:absolute;
+			left: 0;
+			top: 0;
+			width: 40px;
+			height: 40px;
+			background: transparent url('../svgs/success-tick.svg') center center no-repeat;
+			background-size: auto 40px;
+		}
+	}
+}
+
+.quote {
+	padding: 20px 0 20px 0;
+
+	span {
+		font-size: 36px;
+		font-weight: 700;
+	}
+}
+
+.get-started {
+	text-align: center;
+
+	button {
+		margin: 0 0 50px 0;
+	}
+
+	a {
+		display: inline-block;
+		color: $brand_primary-colour;
+		font-size: 14px;
+		text-decoration: none;
+		padding-bottom: 5px;
+		border-bottom: 1px solid $brand_primary-colour;
+	}
+}

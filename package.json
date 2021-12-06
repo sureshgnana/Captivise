@@ -1,0 +1,19 @@
+{
+  "name": "captivise",
+  "version": "1.0.0",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "bower:install": "bower install",
+    "gulp:build": "gulp sass",
+    "gulp:watch": "gulp watch"
+  },
+  "private": true,
+  "dependencies": {
+    "bower": "1.8.0"
+  },
+  "devDependencies": {
+    "gulp": "3.9.1",
+    "gulp-autoprefixer": "3.1.1",
+    "gulp-sass": "3.1.0"
+  }
+}

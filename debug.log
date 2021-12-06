@@ -1,0 +1,477 @@
+Internal Server Error: /register/
+Traceback (most recent call last):
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/views/generic/base.py", line 97, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/views/generic/edit.py", line 172, in post
+    return super().post(request, *args, **kwargs)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/views/generic/edit.py", line 142, in post
+    return self.form_valid(form)
+  File "/var/www/appcaptivise/apps/accounts/views.py", line 84, in form_valid
+    response = super().form_valid(form)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/views/generic/edit.py", line 125, in form_valid
+    self.object = form.save()
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/contrib/auth/forms.py", line 130, in save
+    user.save()
+  File "/var/www/appcaptivise/apps/accounts/models.py", line 336, in save
+    alert_user_registered.apply_async((self.pk,))
+AttributeError: 'function' object has no attribute 'apply_async'
+Internal Server Error: /register/
+Traceback (most recent call last):
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/views/generic/base.py", line 97, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/views/generic/edit.py", line 172, in post
+    return super().post(request, *args, **kwargs)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/views/generic/edit.py", line 142, in post
+    return self.form_valid(form)
+  File "/var/www/appcaptivise/apps/accounts/views.py", line 84, in form_valid
+    response = super().form_valid(form)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/views/generic/edit.py", line 125, in form_valid
+    self.object = form.save()
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/contrib/auth/forms.py", line 130, in save
+    user.save()
+  File "/var/www/appcaptivise/apps/accounts/models.py", line 336, in save
+    alert_user_registered.apply_async((self.pk,))
+AttributeError: 'function' object has no attribute 'apply_async'
+Internal Server Error: /register/
+Traceback (most recent call last):
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/views/generic/base.py", line 97, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/views/generic/edit.py", line 172, in post
+    return super().post(request, *args, **kwargs)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/views/generic/edit.py", line 142, in post
+    return self.form_valid(form)
+  File "/var/www/appcaptivise/apps/accounts/views.py", line 84, in form_valid
+    response = super().form_valid(form)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/views/generic/edit.py", line 125, in form_valid
+    self.object = form.save()
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/contrib/auth/forms.py", line 130, in save
+    user.save()
+  File "/var/www/appcaptivise/apps/accounts/models.py", line 336, in save
+    alert_user_registered.apply_async((self.pk,))
+AttributeError: 'function' object has no attribute 'apply_async'
+Internal Server Error: /register/
+Traceback (most recent call last):
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/views/generic/base.py", line 97, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/views/generic/edit.py", line 172, in post
+    return super().post(request, *args, **kwargs)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/views/generic/edit.py", line 142, in post
+    return self.form_valid(form)
+  File "/var/www/appcaptivise/apps/accounts/views.py", line 84, in form_valid
+    response = super().form_valid(form)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/views/generic/edit.py", line 125, in form_valid
+    self.object = form.save()
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/contrib/auth/forms.py", line 130, in save
+    user.save()
+  File "/var/www/appcaptivise/apps/accounts/models.py", line 336, in save
+    alert_user_registered.apply_async((self.pk,))
+AttributeError: 'function' object has no attribute 'apply_async'
+Internal Server Error: /manage/login/
+Traceback (most recent call last):
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/contrib/sites/models.py", line 39, in _get_site_by_request
+    SITE_CACHE[host] = self.get(domain__iexact=host)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/db/models/manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/db/models/query.py", line 408, in get
+    self.model._meta.object_name
+django.contrib.sites.models.Site.DoesNotExist: Site matching query does not exist.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/views/decorators/cache.py", line 44, in _wrapped_view_func
+    response = view_func(request, *args, **kwargs)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/contrib/admin/sites.py", line 399, in login
+    return LoginView.as_view(**defaults)(request)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/utils/decorators.py", line 45, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/views/decorators/debug.py", line 76, in sensitive_post_parameters_wrapper
+    return view(request, *args, **kwargs)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/utils/decorators.py", line 45, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/utils/decorators.py", line 142, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/utils/decorators.py", line 45, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/views/decorators/cache.py", line 44, in _wrapped_view_func
+    response = view_func(request, *args, **kwargs)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/contrib/auth/views.py", line 61, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/views/generic/base.py", line 97, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/views/generic/edit.py", line 133, in get
+    return self.render_to_response(self.get_context_data())
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/contrib/auth/views.py", line 95, in get_context_data
+    current_site = get_current_site(self.request)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/contrib/sites/shortcuts.py", line 13, in get_current_site
+    return Site.objects.get_current(request)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/contrib/sites/models.py", line 60, in get_current
+    return self._get_site_by_request(request)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/contrib/sites/models.py", line 45, in _get_site_by_request
+    SITE_CACHE[domain] = self.get(domain__iexact=domain)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/db/models/manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/db/models/query.py", line 408, in get
+    self.model._meta.object_name
+django.contrib.sites.models.Site.DoesNotExist: Site matching query does not exist.
+Internal Server Error: /manage/login/
+Traceback (most recent call last):
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/contrib/sites/models.py", line 39, in _get_site_by_request
+    SITE_CACHE[host] = self.get(domain__iexact=host)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/db/models/manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/db/models/query.py", line 408, in get
+    self.model._meta.object_name
+django.contrib.sites.models.Site.DoesNotExist: Site matching query does not exist.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/views/decorators/cache.py", line 44, in _wrapped_view_func
+    response = view_func(request, *args, **kwargs)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/contrib/admin/sites.py", line 399, in login
+    return LoginView.as_view(**defaults)(request)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/utils/decorators.py", line 45, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/views/decorators/debug.py", line 76, in sensitive_post_parameters_wrapper
+    return view(request, *args, **kwargs)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/utils/decorators.py", line 45, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/utils/decorators.py", line 142, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/utils/decorators.py", line 45, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/views/decorators/cache.py", line 44, in _wrapped_view_func
+    response = view_func(request, *args, **kwargs)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/contrib/auth/views.py", line 61, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/views/generic/base.py", line 97, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/views/generic/edit.py", line 133, in get
+    return self.render_to_response(self.get_context_data())
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/contrib/auth/views.py", line 95, in get_context_data
+    current_site = get_current_site(self.request)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/contrib/sites/shortcuts.py", line 13, in get_current_site
+    return Site.objects.get_current(request)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/contrib/sites/models.py", line 60, in get_current
+    return self._get_site_by_request(request)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/contrib/sites/models.py", line 45, in _get_site_by_request
+    SITE_CACHE[domain] = self.get(domain__iexact=domain)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/db/models/manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/db/models/query.py", line 408, in get
+    self.model._meta.object_name
+django.contrib.sites.models.Site.DoesNotExist: Site matching query does not exist.
+Internal Server Error: /register/
+Traceback (most recent call last):
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/db/backends/utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/db/backends/mysql/base.py", line 71, in execute
+    return self.cursor.execute(query, args)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/pymysql/cursors.py", line 148, in execute
+    result = self._query(query)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/pymysql/cursors.py", line 310, in _query
+    conn.query(q)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/pymysql/connections.py", line 548, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/pymysql/connections.py", line 775, in _read_query_result
+    result.read()
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/pymysql/connections.py", line 1156, in read
+    first_packet = self.connection._read_packet()
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/pymysql/connections.py", line 725, in _read_packet
+    packet.raise_for_error()
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/pymysql/protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/pymysql/err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.DataError: (1366, "Incorrect string value: '\\xC5\\x82a' for column 'last_name' at row 1")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/views/generic/base.py", line 97, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/views/generic/edit.py", line 172, in post
+    return super().post(request, *args, **kwargs)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/views/generic/edit.py", line 142, in post
+    return self.form_valid(form)
+  File "/var/www/appcaptivise/apps/accounts/views.py", line 84, in form_valid
+    response = super().form_valid(form)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/views/generic/edit.py", line 125, in form_valid
+    self.object = form.save()
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/contrib/auth/forms.py", line 130, in save
+    user.save()
+  File "/var/www/appcaptivise/apps/accounts/models.py", line 332, in save
+    super().save(*args, **kwargs)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/contrib/auth/base_user.py", line 66, in save
+    super().save(*args, **kwargs)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/db/models/base.py", line 741, in save
+    force_update=force_update, update_fields=update_fields)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/db/models/base.py", line 779, in save_base
+    force_update, using, update_fields,
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/db/models/base.py", line 870, in _save_table
+    result = self._do_insert(cls._base_manager, using, fields, update_pk, raw)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/db/models/base.py", line 908, in _do_insert
+    using=using, raw=raw)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/db/models/manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/db/models/query.py", line 1186, in _insert
+    return query.get_compiler(using=using).execute_sql(return_id)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/db/models/sql/compiler.py", line 1368, in execute_sql
+    cursor.execute(sql, params)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/db/backends/utils.py", line 99, in execute
+    return super().execute(sql, params)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/db/backends/utils.py", line 67, in execute
+    return self._execute_with_wrappers(sql, params, many=False, executor=self._execute)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/db/backends/utils.py", line 76, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/db/backends/utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/db/utils.py", line 89, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/db/backends/utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/db/backends/mysql/base.py", line 71, in execute
+    return self.cursor.execute(query, args)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/pymysql/cursors.py", line 148, in execute
+    result = self._query(query)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/pymysql/cursors.py", line 310, in _query
+    conn.query(q)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/pymysql/connections.py", line 548, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/pymysql/connections.py", line 775, in _read_query_result
+    result.read()
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/pymysql/connections.py", line 1156, in read
+    first_packet = self.connection._read_packet()
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/pymysql/connections.py", line 725, in _read_packet
+    packet.raise_for_error()
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/pymysql/protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/pymysql/err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+django.db.utils.DataError: (1366, "Incorrect string value: '\\xC5\\x82a' for column 'last_name' at row 1")
+Internal Server Error: /manage/login/
+Traceback (most recent call last):
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/contrib/sites/models.py", line 39, in _get_site_by_request
+    SITE_CACHE[host] = self.get(domain__iexact=host)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/db/models/manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/db/models/query.py", line 408, in get
+    self.model._meta.object_name
+django.contrib.sites.models.Site.DoesNotExist: Site matching query does not exist.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/views/decorators/cache.py", line 44, in _wrapped_view_func
+    response = view_func(request, *args, **kwargs)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/contrib/admin/sites.py", line 399, in login
+    return LoginView.as_view(**defaults)(request)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/utils/decorators.py", line 45, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/views/decorators/debug.py", line 76, in sensitive_post_parameters_wrapper
+    return view(request, *args, **kwargs)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/utils/decorators.py", line 45, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/utils/decorators.py", line 142, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/utils/decorators.py", line 45, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/views/decorators/cache.py", line 44, in _wrapped_view_func
+    response = view_func(request, *args, **kwargs)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/contrib/auth/views.py", line 61, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/views/generic/base.py", line 97, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/views/generic/edit.py", line 133, in get
+    return self.render_to_response(self.get_context_data())
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/contrib/auth/views.py", line 95, in get_context_data
+    current_site = get_current_site(self.request)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/contrib/sites/shortcuts.py", line 13, in get_current_site
+    return Site.objects.get_current(request)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/contrib/sites/models.py", line 60, in get_current
+    return self._get_site_by_request(request)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/contrib/sites/models.py", line 45, in _get_site_by_request
+    SITE_CACHE[domain] = self.get(domain__iexact=domain)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/db/models/manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/db/models/query.py", line 408, in get
+    self.model._meta.object_name
+django.contrib.sites.models.Site.DoesNotExist: Site matching query does not exist.
+Internal Server Error: /register/
+Traceback (most recent call last):
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/db/backends/utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/db/backends/mysql/base.py", line 71, in execute
+    return self.cursor.execute(query, args)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/pymysql/cursors.py", line 148, in execute
+    result = self._query(query)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/pymysql/cursors.py", line 310, in _query
+    conn.query(q)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/pymysql/connections.py", line 548, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/pymysql/connections.py", line 775, in _read_query_result
+    result.read()
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/pymysql/connections.py", line 1156, in read
+    first_packet = self.connection._read_packet()
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/pymysql/connections.py", line 725, in _read_packet
+    packet.raise_for_error()
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/pymysql/protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/pymysql/err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.DataError: (1366, "Incorrect string value: '\\xC5\\x9F' for column 'last_name' at row 1")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/views/generic/base.py", line 97, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/views/generic/edit.py", line 172, in post
+    return super().post(request, *args, **kwargs)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/views/generic/edit.py", line 142, in post
+    return self.form_valid(form)
+  File "/var/www/appcaptivise/apps/accounts/views.py", line 84, in form_valid
+    response = super().form_valid(form)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/views/generic/edit.py", line 125, in form_valid
+    self.object = form.save()
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/contrib/auth/forms.py", line 130, in save
+    user.save()
+  File "/var/www/appcaptivise/apps/accounts/models.py", line 332, in save
+    super().save(*args, **kwargs)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/contrib/auth/base_user.py", line 66, in save
+    super().save(*args, **kwargs)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/db/models/base.py", line 741, in save
+    force_update=force_update, update_fields=update_fields)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/db/models/base.py", line 779, in save_base
+    force_update, using, update_fields,
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/db/models/base.py", line 870, in _save_table
+    result = self._do_insert(cls._base_manager, using, fields, update_pk, raw)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/db/models/base.py", line 908, in _do_insert
+    using=using, raw=raw)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/db/models/manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/db/models/query.py", line 1186, in _insert
+    return query.get_compiler(using=using).execute_sql(return_id)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/db/models/sql/compiler.py", line 1368, in execute_sql
+    cursor.execute(sql, params)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/db/backends/utils.py", line 99, in execute
+    return super().execute(sql, params)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/db/backends/utils.py", line 67, in execute
+    return self._execute_with_wrappers(sql, params, many=False, executor=self._execute)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/db/backends/utils.py", line 76, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/db/backends/utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/db/utils.py", line 89, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/db/backends/utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/db/backends/mysql/base.py", line 71, in execute
+    return self.cursor.execute(query, args)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/pymysql/cursors.py", line 148, in execute
+    result = self._query(query)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/pymysql/cursors.py", line 310, in _query
+    conn.query(q)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/pymysql/connections.py", line 548, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/pymysql/connections.py", line 775, in _read_query_result
+    result.read()
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/pymysql/connections.py", line 1156, in read
+    first_packet = self.connection._read_packet()
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/pymysql/connections.py", line 725, in _read_packet
+    packet.raise_for_error()
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/pymysql/protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/pymysql/err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+django.db.utils.DataError: (1366, "Incorrect string value: '\\xC5\\x9F' for column 'last_name' at row 1")
+Internal Server Error: /login/
+Traceback (most recent call last):
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/core/handlers/base.py", line 145, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/core/handlers/base.py", line 143, in _get_response
+    response = response.render()
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/template/response.py", line 106, in render
+    self.content = self.rendered_content
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/template/response.py", line 81, in rendered_content
+    template = self.resolve_template(self.template_name)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/template/response.py", line 63, in resolve_template
+    return select_template(template, using=self.using)
+  File "/var/www/appcaptivise/venv/lib/python3.6/site-packages/django/template/loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(', '.join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: accounts/login.html

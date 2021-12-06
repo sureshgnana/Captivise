@@ -1,0 +1,53 @@
+{% extends "admin/base.html" %}
+
+{% load staticfiles %}
+
+{% block title %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
+{% block extrastyle %}
+    <style>
+        #header {padding: 6px 40px;}
+        .module h2, .module caption, .inline-group h2, #header {background-color: #20b786;}
+
+        div.breadcrumbs {
+            background-color: #99E5B2;
+            color: #ffc;
+        }
+        div.breadcrumbs a:focus, div.breadcrumbs a:hover {
+        color: #fff; text-decoration: underline;
+        }
+
+        .button, input[type=submit], input[type=button], .submit-row input, a.button {
+            color: #20b786;
+            background: none;
+            border: 1px solid #20b786;
+        }
+
+        .button:hover, input[type=submit]:hover, input[type=button]:hover, .submit-row input:hover, a.button:hover {
+            background: #20b786;
+            color: white;
+        }
+        .button.default, input[type=submit].default, .submit-row input.default {background-color: #20b786; color: #fff;}
+        .button.default:active, input[type=submit].default:active,
+        .button.default:focus, input[type=submit].default:focus,
+        .button.default:hover, input[type=submit].default:hover {
+        background: #20b786;
+        }
+        a:link, a:visited {color: #20b786;}
+        .object-tools a:link, .object-tools a:visited{background-color: #20b786;}
+        .selector-chosen h2{background-color: #20b786 !important;}
+        #header a:focus , #header a:hover {text-decoration:none !important;color: #fff;}
+        #user-tools a:focus, #user-tools a:hover {
+            text-decoration: none;border-bottom: 1px solid rgba(255, 255, 255, 0.25);color: #fff;
+        }
+    </style>
+
+{% endblock %}
+{% block branding %}
+    <h1 id="site-name">
+        <a href="{% url 'admin:index' %}">
+            <img src="{% static 'svgs/captivise.svg' %}" height="20px"/>
+        </a>
+    </h1>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}

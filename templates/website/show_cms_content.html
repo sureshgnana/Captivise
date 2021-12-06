@@ -1,0 +1,15 @@
+{% extends "authenticated.html" %}
+
+{% block content %}
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                {% for cms in cms_ct %}
+		        <h1>{{ cms.title }}</h1>	        
+
+		        {{ cms.content |safe }}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

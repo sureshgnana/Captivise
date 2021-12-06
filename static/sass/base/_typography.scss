@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700');
+
+html,
+body {
+	font-family: 'Open Sans', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	@include font-size(1.375);
+	font-style: none;
+	font-variant: none;
+	font-weight: 400;
+	margin: 0 0 1.25em 0;
+	@include text-rendering;
+}
+
+p {
+	margin: 0 0 1.25em 0;
+}
+
+ul {
+	padding: 0 0 0 1.25em;
+	margin: 0 0 1.25em 0;
+	list-style-type: disc;
+}

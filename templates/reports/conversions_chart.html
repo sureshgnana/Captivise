@@ -1,0 +1,50 @@
+  <div class="col-sm-12 col-md-12 col-lg-8 c-graph">
+    {{ date_range_form.non_field_errors }}
+    <div class="float-right c-graph-section">
+    <form class="js-date-range date-picker" method="GET">
+      <div class="row">        
+      
+      <div class="col-6 col-sm-6 col-lg-4 pright-0 pb-2">
+        <label for="{{ date_range_form.date_from.id_for_label }}">From:</label>
+        {{ date_range_form.date_from }}
+      </div>
+      <div class="col-6 col-sm-6 col-lg-4 pright-0 pb-2">
+        <label for="{{ date_range_form.date_to.id_for_label }}">To:</label>
+        {{ date_range_form.date_to }}
+        <span class="or d-none d-lg-inline">or</span>
+      </div>
+      <div class="col-12 col-sm-12 pb-2 d-lg-none d-xl-none text-center">
+        <span class="or">or</span>
+      </div>     
+      <div class="col-9 col-sm-10 col-lg-3 pb-2">
+        <select name="chart_range" autocomplete="off" class="js-date-range-selector skip_these form-control">
+          <option {% if chart_range == 'last30Days' %}selected="selected"{% endif %} value="last30Days">Last 30 days</option>
+          <option {% if chart_range == 'thisWeek' %}selected="selected"{% endif %} value="thisWeek">This week</option>
+          <option {% if chart_range == 'lastWeek' %}selected="selected"{% endif %} value="lastWeek">Last week</option>
+          <option {% if chart_range == 'thisMonth' %}selected="selected"{% endif %} value="thisMonth">This month</option>
+          <option {% if chart_range == 'lastMonth' %}selected="selected"{% endif %} value="lastMonth">Last month</option>
+          <option {% if chart_range == 'thisYear' %}selected="selected"{% endif %} value="thisYear">This year</option>
+          <option {% if chart_range == 'lastYear' %}selected="selected"{% endif %} value="lastYear">Last year</option>
+          <option {% if chart_range == 'allTime' %}selected="selected"{% endif %} value="allTime">All time</option>
+        </select>
+      </div>
+      <div class="col-3 col-sm-2 col-lg-1 pleft-0 pb-2">
+        <button type="submit" title="Refresh" class="refresh pull-right ml-2">Show</button>
+      </div>
+    </div>
+  </form>
+  </div>
+</div>
+<div class="col-md-12 pl-0 mt-2">
+  {% if conversions_exist %}
+  <div class="dashboard-chart">
+    <div class="js-chart" id="chart"></div>
+  </div>
+  <script>
+    chart.metrics = JSON.parse('{{ metrics|safe }}');
+  </script>
+  {% else %}
+    <div class="mt-5 mb-5 text-center"><h5>No conversion data available.</h5></div>
+  {% endif %}   
+</div>
+

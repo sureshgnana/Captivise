@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% load spend_percent_amount %}
+
+{% block content %}
+	<div class="container mt-5">
+		<div class="row justify-content-center">
+			<div class="col-xs-12 col-sm-12 col-md-6">
+				<h2 class="mb-5">Step 2. Your Quote</h2>
+
+				<p class="intro">
+					Based on the spend during the last 30 days for the Google AdWords account provided,
+					your estimated monthly Captivise costs would be as follows:
+				</p>
+
+				<p class="quote"><span class="quote-amount">£{{ quote.quote|spend_percent_amount }}</span> per month</p>
+				
+				<script>
+					var quote = "{{ quote.quote|spend_percent_amount }}";
+					quote = quote.split('.').join("");
+					quote = parseInt(quote);
+
+					window.addEventListener('load', function () {
+						ga('send', {
+							hitType: 'event',
+							eventCategory: 'Sales',
+							eventAction: 'Quote',
+							eventLabel: 'Quote',
+							eventValue: quote
+						});
+					});
+				</script>
+
+				<form class="get-started" method="post">
+					{% csrf_token %}
+					<div class="row">
+						<div class="col-xs-6 col-sm-6 col-md-6 pt-3">
+							<button type="submit" class="btn btn-block">Get started with Captivise</button>							
+						</div>
+						<div class="col-xs-6 col-sm-6 col-md-6 pt-3">
+							<a href="{% url 'accounts_oauth_redirect' %}" class="btn btn-block">Quote on another account</a>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+{% endblock content %}

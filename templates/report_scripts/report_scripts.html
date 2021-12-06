@@ -1,0 +1,25 @@
+{% extends "authenticated.html" %}
+{% load render_table from django_tables2 %}
+
+{% block content %}
+
+    <h2>Reports</h2>
+
+    <ul class="campaign-list_switcher">
+        <li><a class="{% if active_menu.report_scripts_schedules %}active{% endif %}" href="{% url 'report_scripts_schedules' %}">Enabled</a></li>
+        <li><a class="{% if active_menu.report_scripts_results %}active{% endif %}" href="{% url 'report_scripts_results' %}">Results</a></li>        
+    </ul>
+
+    {% if has_adwords_account %}
+        <div>            
+            {% render_table campaigns %}            
+        </div>
+    {% else %}
+        {% include 'reports/no_linked_adwords_account.html' %}
+    {% endif %}
+    <script>
+        function toggle(source) {
+            $("input[type=checkbox]").prop('checked', $(source).prop('checked'));
+        }
+    </script>
+{% endblock content %}

@@ -1,0 +1,607 @@
+{% extends "authenticated.html" %}
+
+{% block content %}
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-xs-12 col-sm-12 col-md-6">
+                <h2>{{page_content.title |safe}}</h2>
+                {{page_content.content |safe}}  
+                {% csrf_token %}
+                <div class="row align-items-center">
+                  <div class="col-sm-5 col-md-5 mx-auto align-self-center text-center">
+                    <img src="/static/images/stripe-logo.svg" alt="stripe" height="70">
+                  </div>
+                  <div class="col-sm-7 col-md-7 mx-auto align-self-center text-center">
+                  <div class="">
+                    <img src="/static/images/creditcards.png" alt="credit cards">
+                  </div>
+                  </div>
+                  </div>
+                <div class="sr-root">
+                    <div class="sr-main">
+                    <div class="sr-payment-form card">
+                        <div class="sr-form-row">
+                        <label>
+                            Your Email Address
+                        </label>
+                        <input type="text" id="email" placeholder="Email address" value="{{user_email}}"/>
+                        </div>
+
+                        <div class="sr-form-row">
+                        <label>
+                            Your Payment Details
+                        </label>
+                        <div class="sr-input sr-element sr-card-element" id="card-element">
+                            <!-- A Stripe card Element will be inserted here. -->
+                        </div>
+                        </div>
+                        <div class="sr-field-error" id="card-errors" role="alert"></div>
+                        <button id="submit" class="btn">
+                        <div class="spinner hidden" id="spinner"></div>
+                        <span id="button-text">Link your card to your account</span>
+                        </button>
+                    </div>
+                    <div class="sr-result hidden">
+                        <div class="successM">
+                        <div class="successsym">
+                            <label for="checkbox"></label>
+                        </div>          
+                        </div>  
+                        <h2 class="successT">Success</h2>
+                        <p>Your card setup completed. You will be redirected to your account page<br /></p>        
+                    </div>
+                    </div>
+                </div>
+  <script src="https://js.stripe.com/v3/"></script>
+<script>
+    var stripeElements = function(publicKey, setupIntent) {
+  var stripe = Stripe(publicKey);
+  var elements = stripe.elements();
+
+  // Element styles
+  var style = {
+    base: {
+      fontSize: "16px",
+      color: "#32325d",
+      fontFamily:
+        "-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif",
+      fontSmoothing: "antialiased",
+      "::placeholder": {
+        color: "rgba(0,0,0,0.4)"
+      }
+    }
+  };
+
+  var card = elements.create("card", { style: style });
+
+  card.mount("#card-element");
+
+  // Element focus ring
+  card.on("focus", function() {
+    var el = document.getElementById("card-element");
+    el.classList.add("focused");
+  });
+
+  card.on("blur", function() {
+    var el = document.getElementById("card-element");
+    el.classList.remove("focused");
+  });
+
+  // Handle payment submission when user clicks the pay button.
+  var button = document.getElementById("submit");
+  button.addEventListener("click", function(event) {
+    event.preventDefault();
+    changeLoadingState(true);
+    var email = document.getElementById("email").value;
+    //alert(email);
+
+    stripe
+      .confirmCardSetup(setupIntent.client_secret, {
+        payment_method: {
+          card: card,
+          billing_details: { email: email }
+        }
+      })
+      .then(function(result) {
+        if (result.error) {
+          changeLoadingState(false);
+          var displayError = document.getElementById("card-errors");
+          displayError.textContent = result.error.message;
+        } else {
+          // The PaymentMethod was successfully set up
+          orderComplete(stripe, setupIntent.client_secret);
+        }
+      });
+  });
+};
+
+var getSetupIntent = function(publicKey) {
+  var csrftoken = document.getElementsByName("csrfmiddlewaretoken")[0].value;
+  //alert(csrftoken)
+  data = {"csrfmiddlewaretoken":csrftoken}
+  return fetch("/create-setup-intent", {
+    method: "get",
+    data:JSON.stringify(data),
+    headers: {
+      "Content-Type": "application/json",
+      "X-CSRFToken": csrftoken
+    }
+  })
+    .then(function(response) {
+      return response.json();
+      console.log(response.json());
+    })
+    .then(function(setupIntent) {
+      stripeElements(publicKey, setupIntent);
+    });
+};
+
+var getPublicKey = function() {
+  return fetch("/public-key", {
+    method: "get",
+    headers: {
+      "Content-Type": "application/json"
+    }
+  })
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(response) {
+      getSetupIntent(response.publicKey);
+    });
+};
+
+// Show a spinner on payment submission
+var changeLoadingState = function(isLoading) {
+  if (isLoading) {
+    document.querySelector("button").disabled = true;
+    document.querySelector("#spinner").classList.remove("hidden");
+    document.querySelector("#button-text").classList.add("hidden");
+  } else {
+    document.querySelector("button").disabled = false;
+    document.querySelector("#spinner").classList.add("hidden");
+    document.querySelector("#button-text").classList.remove("hidden");
+  }
+};
+
+/* Shows a success / error message when the payment is complete */
+var orderComplete = function(stripe, clientSecret) {
+  stripe.retrieveSetupIntent(clientSecret).then(function(result) {
+    var setupIntent = result.setupIntent;
+    var setupIntentJson = JSON.stringify(setupIntent, null, 2);
+    document.querySelector(".sr-payment-form").classList.add("hidden");
+    document.querySelector(".sr-result").classList.remove("hidden");
+    //document.querySelector("pre").textContent = setupIntentJson;
+    //setTimeout(function() {
+     // document.querySelector(".sr-result").classList.add("expand");
+    //}, 200);
+    //alert(setupIntent.id);
+    
+    var csrftoken = document.getElementsByName("csrfmiddlewaretoken")[0].value;
+
+    data = {
+      "csrfmiddlewaretoken": csrftoken, 
+      "setup_intents_id": setupIntent.id,
+      "client_secret": setupIntent.client_secret,
+      "payment_method": setupIntent.payment_method 
+    }   
+   
+    postData("/update-setup-intent/", data)
+                                .then(data => {
+                                    console.log(data);
+                                });   
+
+    changeLoadingState(false);
+
+    setTimeout(function() {
+     window.location.href = '/account/';
+
+    }, 500);
+  });
+};
+
+// Example POST method implementation:
+async function postData(url = '', data = {}) {
+
+  var formData = new FormData();
+  formData.append('csrfmiddlewaretoken', data.csrfmiddlewaretoken);
+  formData.append('setup_intents_id', data.setup_intents_id);
+  formData.append('client_secret', data.client_secret);
+  formData.append('payment_method', data.payment_method);
+
+  const response = await fetch(url, {
+      method: 'POST',
+      cache: 'no-cache',
+      mode: 'cors',
+      credentials: 'same-origin',
+      headers: {
+          "X-Requested-With": "XMLHttpRequest",
+      },
+      redirect: 'follow',
+      referrerPolicy: 'no-referrer',
+      body: formData
+  });
+  return response.json();
+}
+
+getPublicKey();
+</script>
+    </div>
+</div>
+</div>
+<style>
+  .successT{
+    margin-top: 55px;
+    text-align: center;
+  }
+ .successM{
+  margin: 0px auto;
+ }
+.successsym {
+  position: relative;
+  margin-left: 45%;
+  margin-top: 10px;
+}
+.sr-root .card {border:none; border-radius: 0;}
+.successsym label {
+  background-color: #20b786;
+  border-color: #20b786;
+  border-radius: 50%;
+  cursor: pointer;
+  height: 35px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 35px;
+}
+
+.successsym label:after {
+  border: 2px solid #fff;
+  border-top: none;
+  border-right: none;
+  content: "";
+  height: 6px;
+  left: 10px;
+  opacity: 0;
+  position: absolute;
+  top: 11px;
+  transform: rotate(-45deg);
+  width: 12px;
+  opacity: 1;
+}  
+.accounts .btn{
+  width: 100%;
+}
+.stripe-button-el{
+background-color: #fff;
+}
+.stripe-button-el span{ border: 1px solid #20b786;height: 40px;width: 251px;
+line-height: 40px;
+padding: 0 20px;
+text-decoration: none;
+color: #20b786;
+font-family: 'Open Sans',sans-serif;
+text-align: center;
+background: white;
+float: left;
+outline: 0;
+cursor: pointer;}
+
+/* Variables */
+:root {
+  --body-color: rgb(247, 250, 252);
+  --button-color: rgb(30, 166, 114);
+  --accent-color: #0a721b;
+  --secondary-color: #ed5f74;
+  --link-color: #ffffff;
+  --font-color: rgb(105, 115, 134);
+  --gray-border: rgba(0, 0, 0, 0.15);
+  --gray-light: rgba(0, 0, 0, 0.4);
+  --body-font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  --radius: 6px;
+  --form-width: 400px;
+}
+
+/* Base */
+
+
+/* Layout */
+.sr-root {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  max-width: 980px;
+  padding: 10px;
+  align-content: center;
+  justify-content: center;
+  height: auto;
+  min-height: 100vh;
+  margin: 0 auto;
+}
+.sr-main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  padding: 15px 25px 20px;
+  /*align-self: center;  
+  background: var(--body-color);*/
+  width: var(--form-width);
+  border-radius: var(--radius);
+  /*box-shadow: 0px 0px 0px 0.5px rgba(50, 50, 93, 0.1),
+    0px 2px 5px 0px rgba(50, 50, 93, 0.1), 0px 1px 1.5px 0px rgba(0, 0, 0, 0.07);*/
+}
+.sr-picker {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 25px;
+}
+.sr-picker button {
+  background: none !important;
+  border: none;
+  padding: 0 !important;
+  /*optional*/
+  font-family: arial, sans-serif;
+  /*input has OS specific font-family*/
+  color: var(--accent-color);
+  cursor: pointer;
+  width: 75px;
+  box-shadow: none;
+  border-radius: 0;
+}
+.sr-picker button:hover,
+.sr-picker button:focus,
+.sr-picker button.selected {
+  outline: none;
+  box-shadow: none;
+  border-radius: 0;
+}
+.sr-picker button:hover,
+.sr-picker button:focus {
+  border-bottom: 2px solid var(--secondary-color);
+}
+.sr-picker button.selected {
+  border-bottom: 2px solid var(--accent-color);
+}
+.sr-field-error {
+  color: #F00;
+  text-align: left;
+  font-size: 13px;
+  line-height: 17px;
+  margin-top: 12px;
+}
+
+/* Inputs */
+.sr-input,
+input[type="text"] {
+  border: 1px solid #d8d8d8;;
+  /*border-radius: var(--radius);*/
+  padding: 5px 12px;
+  color:#000;
+  height: 40px;
+  width: 100%;
+  transition: box-shadow 0.2s ease;
+  background: white;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.sr-input:focus,
+input[type="text"]:focus,
+button:focus,
+.focused {
+  border-color:#000;
+  color:#000;
+  outline: none;
+  z-index: 9;
+}
+.sr-input::placeholder,
+input[type="text"]::placeholder {
+  color: var(--gray-light);
+}
+.sr-result {
+  height: 80px;
+  -webkit-transition: height 1s ease;
+  -moz-transition: height 1s ease;
+  -o-transition: height 1s ease;
+  transition: height 1s ease;
+  color: #000000;
+  /*overflow: auto;*/
+}
+.sr-result code {
+  overflow: scroll;
+}
+.sr-result.expand {
+  height: 350px;
+}
+
+.sr-combo-inputs-row {
+  box-shadow: 0px 0px 0px 0.5px rgba(50, 50, 93, 0.1),
+    0px 2px 5px 0px rgba(50, 50, 93, 0.1), 0px 1px 1.5px 0px rgba(0, 0, 0, 0.07);
+  border-radius: 7px;
+}
+
+/* Form */
+.sr-form-row {
+  margin: 16px 0;
+}
+label {
+  /*font-size: 13px;*/
+  font-weight: 500;
+  margin-bottom: 8px;
+  display: inline-block;
+}
+
+/* Buttons and links */
+.sr-root button {
+  
+  /*border-radius: var(--radius);
+  font-weight: 600;*/ 
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: block;
+  box-shadow: none;
+  border-radius: 0;
+}
+.sr-root button:hover {
+  filter: contrast(115%);
+}
+.sr-root button:active {
+  transform: translateY(0px) scale(0.98);
+  filter: brightness(0.9);
+}
+.sr-root button:disabled {
+  opacity: 0.5;
+  cursor: none;
+}
+
+/* Code block */
+code,
+pre {
+  font-family: "SF Mono", "IBM Plex Mono", "Menlo", monospace;
+  font-size: 12px;
+}
+
+/* Stripe Element placeholder */
+.sr-card-element {
+  padding-top: 9px;
+}
+
+/* Responsiveness */
+@media (max-width: 720px) {
+  .sr-root {
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 48px 20px;
+    min-width: 320px;
+  }
+
+  .sr-header__logo {
+    background-position: center;
+  }
+
+  .sr-payment-summary {
+    text-align: center;
+  }
+
+  .sr-content {
+    display: none;
+  }
+
+  .sr-main {
+    width: 100%;
+    height: 305px;
+    /*background: rgb(247, 250, 252);
+    box-shadow: 0px 0px 0px 0.5px rgba(50, 50, 93, 0.1),
+      0px 2px 5px 0px rgba(50, 50, 93, 0.1),
+      0px 1px 1.5px 0px rgba(0, 0, 0, 0.07);
+    border-radius: 6px; */
+  }
+}
+
+/* todo: spinner/processing state, errors, animations */
+
+.spinner,
+.spinner:before,
+.spinner:after {
+  border-radius: 50%;
+}
+.spinner {
+  color: #ffffff;
+  font-size: 22px;
+  text-indent: -99999px;
+  margin: 0px auto;
+  position: relative;
+  width: 20px;
+  height: 20px;
+  box-shadow: inset 0 0 0 2px;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+}
+.spinner:before,
+.spinner:after {
+  position: absolute;
+  content: "";
+}
+.spinner:before {
+  width: 10.4px;
+  height: 20.4px;
+  background: var(--accent-color);
+  border-radius: 20.4px 0 0 20.4px;
+  top: -0.2px;
+  left: -0.2px;
+  -webkit-transform-origin: 10.4px 10.2px;
+  transform-origin: 10.4px 10.2px;
+  -webkit-animation: loading 2s infinite ease 1.5s;
+  animation: loading 2s infinite ease 1.5s;
+}
+.spinner:after {
+  width: 10.4px;
+  height: 10.2px;
+  background: var(--accent-color);
+  border-radius: 0 10.2px 10.2px 0;
+  top: -0.1px;
+  left: 10.2px;
+  -webkit-transform-origin: 0px 10.2px;
+  transform-origin: 0px 10.2px;
+  -webkit-animation: loading 2s infinite ease;
+  animation: loading 2s infinite ease;
+}
+
+@-webkit-keyframes loading {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes loading {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+/* Animated form */
+
+.sr-root {
+  animation: 0.4s form-in;
+  animation-fill-mode: both;
+  animation-timing-function: ease;
+}
+
+.hidden {
+  display: none;
+}
+
+@keyframes field-in {
+  0% {
+    opacity: 0;
+    transform: translateY(8px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0px) scale(1);
+  }
+}
+
+@keyframes form-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+</style>
+{% endblock %}

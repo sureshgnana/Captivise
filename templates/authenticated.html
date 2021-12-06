@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block menu %}
+    {% if request.user.has_payment_details %}
+        <div class="collapse navbar-collapse" id="main_nav">
+            <ul class="navbar-nav ml-auto"> 
+                <li class="nav-item">
+                    <a class="nav-link {% if active_menu.dashboard %}active{% endif %}" href="{% url 'reports_dashboard' %}">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if active_menu.campaigns %}active{% endif %}" href="{% url 'reports_campaign_list' %}">Campaigns</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if active_menu.accounts %}active{% endif %}" href="{% url 'accounts_account' %}">Account</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if active_menu.report_scripts %}active{% endif %}" href="{% url 'report_scripts_schedules' %}">Reports</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if active_menu.accounts_payment_list %}active{% endif %}" href="{% url 'accounts_payment_list' %}">Payments</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Information</a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="{% url 'report_scripts_safe_words' %}">Safe-words</a></li>
+                        {% for cms in cms_content %}
+                        <li><a class="dropdown-item" href="{% url 'get_cms_content' cms.id %}">{{cms.menu_title}}</a></li>
+                        {% endfor %}
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'accounts_logout' %}">Logout</a>
+                </li>
+            </ul>
+        </div>
+    {% endif %}
+{% endblock menu %}
+{% block messages_box %}
+{% for message in messages %}
+<div class="container-fluid px-5 mt-3">
+  <div class="alert {{ message.tags }} alert-dismissible" role="alert" >
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    {{ message }}
+  </div>
+</div>
+{% endfor %}
+{% endblock %}
+
+{% block alert_box %}
+    {% if user.show_card_expiry_warning %}
+        <div class="container-fluid mt-5 px-6">
+            <div class="row justify-content-center">
+                <div class="col-xs-12 col-sm-12 col-md-8">
+                    <div class="alert alert-danger" role="alert">
+                        <div class="row">
+                            
+                            <div class="col-md-12">                                
+                                <div class="alert-box-content">
+                                    <h3 class="text-center">Warning &mdash; Your card is expiring soon</h3>
+                                    <p>
+                                        The payment card you have registered with Captivise is
+                                        due to expire soon.  Please update your details on the
+                                        account settings page.
+                                    </p>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div class="row justify-content-center">
+                        <div class="col-xs-12 col-sm-12 col-md-6">
+                            <a href="{% url 'accounts_account' %}" class="btn">Go to Account Settings</a>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    {% if user.is_campaign_warning > 0 %}
+        <div class="container-fluid mt-2 px-6">
+            <div class="row justify-content-center">
+                <div class="col-xs-12 col-sm-12 col-md-8">
+                    <div class="alert alert-danger" role="alert">
+                        <div class="row">
+                            <div class="col-md-12">                                
+                                <div class="alert-box-content">                                    
+                                        Captivise settings missing for <strong>{{user.is_campaign_warning}}</strong> {% if user.is_campaign_warning == 1 %} campaign. {% else %} campaigns.{% endif %} <a href="{% url 'reports_campaign_list' %}?filter=unmanaged">Click here to fix</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

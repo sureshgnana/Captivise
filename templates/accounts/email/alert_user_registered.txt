@@ -1,0 +1,6 @@
+A new user has registered to Captivise.
+
+First name: {{ first_name }}
+Last name: {{ last_name }}
+Email: {{ email }}
+Company name:  {{ company_name }}

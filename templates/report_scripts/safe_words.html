@@ -1,0 +1,52 @@
+{% extends "authenticated.html" %}
+
+{% block content %}
+<div class="container-fluid mt-5 px-6">
+<div class="row justify-content-center">
+    <div class="col-xs-12 col-sm-12 col-md-5">
+
+        <form method="post">
+
+            {% csrf_token %}
+            
+            {% for field in form.visible_fields %}                    
+                <div class="field-wrapper form-group {% if field.errors %} errors{% endif %}{% if field.id_for_label == 'id_target_cpa' %} left{% endif %}{% if field.id_for_label == 'id_target_conversion_margin' %} right{% endif %}">
+                        {{ field.errors }}
+                        <label for="{{ field.id_for_label }}">
+                            <h4>{{ field.label }}</h4>
+
+                            {% if field.help_text %}
+                                <small>{{ field.help_text }}</small>
+                            {% endif %}
+                        </label>
+
+                        {{ field }}
+                           
+                </div>
+            {% endfor %}
+
+            <div class="row">
+                <div class="col-xs-6 col-sm-6 col-md-6 pt-3">   
+                    <a href="{% url 'report_scripts_schedules' %}" class="btn btn-block">Cancel</a>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 pt-3">
+                    <button type="submit" class="btn btn-block">Save</button>
+                </div>
+            </div>
+
+        </form>
+        </div>
+    </div>
+</div>
+   
+{% endblock content %}
+
+{% block extra_js %}
+    {{ form.media.js }}
+    <script>
+    $(document).ready(function() {   
+        $('#id_safe_words').addClass('form-control skipe_these');
+       
+    });
+    </script>
+{% endblock extra_js %}

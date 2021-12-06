@@ -1,0 +1,161 @@
+{% load i18n %}
+{% load static %}
+<table
+    width="620"
+    cellpadding="0"
+    cellspacing="0"
+    border="0"
+    bgcolor="#FFFFFF"
+    style="margin: 0 auto; background-color: #ffffff; vertical-align: top; font-family: 'Open Sans', Verdana, Helvetica, Arial, sans-serif; font-size: 13px; line-height: 18px; width: 620px; padding: 15px; max-width: 100%;"
+>
+    <tbody>
+        <tr>
+            <td colspan="2">
+                <table width="100%" style="width: 100%; margin-top: 20px;">
+                    <tbody>
+                        <tr>
+                            <td style="padding-bottom: 10px; padding-top: 10px;" colspan="2">
+                                <img
+                                    src="{{ config.WEB_URL }}/media/img/logo-email.png"
+                                    alt="Captivise Logo"
+                                    style="width: 100%; max-width: 155px;"                                    
+                                />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" style="vertical-align: top;">
+                <table width="100%" cellspacing="0" cellpadding="0" border="0" style="width: 100%; vertical-align: top; margin-top: 10px;">
+                    <tbody>
+                        <tr>
+                            <td style="font-size: 13px; padding-top: 15px; width: 60%;" width="60%">
+                                <strong style="display: inline-block; margin-bottom: 5px;">Captivise <br />
+                                Lancaster UK <br />                                
+                                <a href="mailto:info@captivise.com" target="_blank">info@captivise.com</a> <br />
+                                <a href="https://www.captivise.com/" target="_blank">
+                                    www.captivise.com
+                                </a>
+                            </td>
+                            <td width="40%" style="width: 40%; font-size: 13px; line-height: 22px; vertical-align: top; padding-top: 15px;">
+                                <strong style="font-size: 18px; display: block; font-weight: 400; margin-bottom: 5px;"><span class="il">Invoice</span> Receipt</strong> <span class="il">Invoice</span># &nbsp;&nbsp;
+                                <strong>{{id}}</strong><br />
+                                <span class="il">Invoice</span> Date &nbsp;&nbsp;<strong>{{created_at}}</strong><br />                                
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <table width="100%" style="width: 100%; margin-top: 15px; margin-bottom: 20px;" cellspacing="0" cellpadding="0" border="0">
+                    <tbody>
+                        <tr>
+                            <td style="padding: 8px 0px;" colspan="2">
+                                <strong>Billed To</strong> <br />
+                                {% if address.street_address %}
+                                {{address.street_address}}<br />
+                                {% endif %}
+                                {% if address.city %}
+                                {{address.postal_code}} {{address.city}}<br />
+                                {% endif %}
+                                {% if address.state %}
+                                {{address.state}}<br />
+                                {% endif %}
+                                {% if address.country %}
+                                {{address.country}}<br />
+                                {% endif %}
+                                {% if phone %}
+                                {{phone}}<br />
+                                {% endif %}
+                                {% if email %}
+                                {{email}}<br />
+                                {% endif %}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <table width="100%" style="width: 100%;" cellspacing="0" cellpadding="0" border="0">
+                    <tbody>
+                        <tr>
+                            <td style="padding: 0px;">
+                                <table width="100%" style="width: 100%;" cellpadding="0" cellspacing="0" border="0">
+                                    <tbody>
+                                        <tr>
+                                            <th align="left" style="padding: 8px 0px; border-bottom: 1px solid #000; color: #000;">Description</th>
+                                            <th align="right" style="padding: 8px 0px; border-bottom: 1px solid #000; color: #000;">Amount</th>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2" style="padding: 8px 0px;">
+                                                <table width="100%" style="width: 100%;" cellpadding="0" cellspacing="0" border="0">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td align="left" style="border-bottom: 1px solid #f0f1f2; padding: 8px 0px;">Captivise Payment</td>
+                                                            <td align="right" style="border-bottom: 1px solid #f0f1f2; padding: 8px 0px;">{{amount}} GBP</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="1" width="55%" style="padding: 0px; width: 55%;"></td>
+                                            <td colspan="1" width="45%" style="padding: 0px; width: 45%;">
+                                                <table width="100%" style="width: 100%;" cellpadding="0" cellspacing="0" border="0">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td colspan="1" style="padding: 0px;">
+                                                                <table width="100%" cellspacing="0" cellpadding="0" style="width: 100%;" border="0">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td align="right" style="padding: 8px 0px;"><strong>Subtotal</strong></td>
+                                                                            <td align="right" style="padding: 8px 0px;">{{amount}} GBP</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td align="right" style="padding: 8px 0px;">VAT (0.0%) (+)</td>
+                                                                            <td align="right" style="padding: 8px 0px;">0.00 GBP</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td style="border-top: 1px solid #000; color: #000; padding: 8px 0px;" align="right"><strong>Total</strong></td>
+                                                                            <td style="border-top: 1px solid #000; color: #000; padding: 8px 0px;" align="right">{{amount}} GBP</td>
+                                                                        </tr>                                                                        
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2" style="border-top: 1px solid #000; padding: 0px;" align="right">
+                                                
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" style="padding: 0px;">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top: 30px; margin-bottom: 15px; width: 100%;">
+                    <tbody>
+                        <tr>
+                            <td colspan="2">Please note you can find the <span class="il">invoices</span> in <span class="il">Captivise</span> Payments Section.<br /></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+    </tbody>
+</table>

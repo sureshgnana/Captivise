@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5" id="login-form">
+        <div class="row justify-content-center">
+            <div class="col-xs-12 col-sm-12 col-md-5">
+                <h2 class="mb-5">Login</h2>
+                <div class="row">
+                    <div class="col-md-12"> 
+                        <form method="post">                   
+                                {% csrf_token %}
+
+                                {% include 'form_fields.html' %}
+                                <div class="py-4">
+                                    <button type="submit" class="btn btn-block">Login</button>
+                                </div>                  
+                        </form>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 mt-3"> 
+                        <a href="{% url 'accounts_register' %}" class="btn">Register</a>
+                    </div>
+                    <div class="col-md-12 mt-3"> 
+                        <a href="{% url 'accounts_password_reset' %}" class="link-underline">Forgotten Password</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock content %}
+
+{% block extra_js %}
+<script>
+    $(document).ready(function() {
+      $('#id_password').hideShowPassword(false, true);
+    });
+</script>
+{% endblock extra_js %}

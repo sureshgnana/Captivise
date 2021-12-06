@@ -1,0 +1,57 @@
+@mixin text-rendering {
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	text-rendering: optimizeLegibility;
+}
+
+// Rem output with px fallback
+@mixin font-size($sizeValue: 1) {
+	font-size: ($sizeValue * 16) * 1px;
+	font-size: $sizeValue * 1rem;
+}
+
+// Clearfix
+@mixin clearfix() {
+	content: "";
+	display: table;
+	table-layout: fixed;
+}
+
+// Clear after (not all clearfix need this also)
+@mixin clearfix-after() {
+	clear: both;
+}
+
+/* Media Query breakpoints */
+@mixin breakpoint($point) {
+	 @if $point == desktop {
+		 @media (min-width: 70em) { @content ; }
+	}
+	 @else if $point == laptop {
+		 @media (min-width: 63.75em) { @content ; }
+	}
+		@else if $point == tablet {
+		 @media (min-width: 50em) { @content ; }
+	}
+	@else if $point == phablet {
+		 @media (min-width: 37.5em)  { @content ; }
+	}
+}
+
+@mixin vertical-align($position: relative) {
+	position: $position;
+	top: 50%;
+	-webkit-transform: translateY(-50%);
+	-ms-transform: translateY(-50%);
+	transform: translateY(-50%);
+}
+
+
+/// Slightly lighten a color
+/// @access public
+/// @param {Color} $color - color to tint
+/// @param {Number} $percentage - percentage of `$color` in returned color
+/// @return {Color}
+@function tint($color, $percentage) {
+  @return mix(white, $color, $percentage);
+}

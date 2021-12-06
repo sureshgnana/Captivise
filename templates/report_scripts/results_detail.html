@@ -1,0 +1,118 @@
+{% extends "authenticated.html" %}
+{% load render_table from django_tables2 %}
+{% block content %}
+    <div class="container-fluid mt-5 px-6">
+        <div class="row justify-content-center">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="row">	
+                    <div class="col-md-12 pl-0">
+                        <h2 class="mb-4">Automated Task - Results Detail</h2>
+                    </div>			
+                    
+                    
+                </div>
+				
+                {% if has_adwords_account %}
+                    {% load bootstrap4 %}
+
+                    <div class="row">	
+                        <div class="col-md-5 pl-0">
+                            <h4>
+                            Campaign <br />
+                            {{result.campaign_name}}
+                            </h4>
+                        </div>
+                        <div class="col-md-5 pl-0">
+                            <h4>
+                            Automated Task <br />
+                            {{result.script_name}}
+                            </h4>
+                        </div>
+                        <div class="col-md-2 pl-0 mb-5">
+                            <div class="float-right">
+                            <a class="btn" href="{% url 'report_scripts_results' %}">Back</a>
+                            </div>
+                        </div>				
+	
+                    </div>
+
+                    {% if filter is None %}    
+
+                        <div class="{% if show_filter is None %} d-none{% endif %} " id="filter-content">
+                            <form action="" method="get">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                        <label for="input1">{{ filter.form.campaign.label_tag}}</label>
+                                        {{ filter.form.campaign}}
+                                    </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                        <label for="input2">{{ filter.form.script_name.label_tag}}</label>
+                                        {{ filter.form.script_name}}
+                                    </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                        <label for="input3">{{ filter.form.created_at_from.label_tag}}</label>
+                                        {{ filter.form.created_at_from}}
+                                    </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                        <label for="input4">{{ filter.form.created_at_to.label_tag}}</label>
+                                        {{ filter.form.created_at_to}}
+                                    </div>
+                                    </div>                                
+                                </div>
+                            <div class="row mb-4">
+                                <div class="col-md-12 pl-0 mt-4">
+                                    <div class="col-md-2 float-right ml-2 mb-2">
+                                    <a href="{% url 'report_scripts_results' %}" class="btn ">Reset</a>
+                                    </div>
+                                    <div class="col-md-2 float-right mb-2">
+                                    <input type="submit" name="search" class="btn " value="Apply Filter">
+                                    </div>
+                                </div>
+                            </div>                        
+                    
+                            </form>  
+                         </div>
+                         <div class="row">
+                            <div class="col-md-12 mb-3">
+                            <div class="col-md-2 float-right">
+                                <button class="btn btn-success collapsed " type="button" id="filter" data-toggle="collapse" data-target="#filter-content" aria-expanded="false">
+                                    <i class="fa fa-filter"></i>  Filter
+                                </button>
+                            </div>
+                        </div>
+                        </div>
+                    {% endif %} 
+
+                    <div class="table-responsive">                   
+                        {% render_table table %}           
+                    </div>
+                {% else %}
+                    {% include 'reports/no_linked_adwords_account.html' %}
+                {% endif %}  
+            </div>
+        </div>
+    </div> 
+{% endblock content %}
+{% block extra_js %}
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("#filter").click(function(){
+      $("#filter-content").toggleClass("d-block");
+    });
+    $('.datepicker').datepicker({
+      constrainInput: true,
+      dateFormat: 'dd/mm/yy',
+      maxDate: 0,
+    });
+    
+  });  
+  
+</script>
+{% endblock extra_js %}

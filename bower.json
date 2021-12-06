@@ -1,0 +1,28 @@
+{
+  "name": "captivise",
+  "authors": [],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "hideshowpassword": "2.0.11",
+    "jquery": "3.1.1",
+    "c3": "0.4.11",
+    "jquery-ui": "1.12.1",
+    "jquery.uniform": "4.1.0",
+    "moment": "2.1.0"
+  },
+  "resolutions": {
+    "jquery": "3.1.1"
+  }
+}

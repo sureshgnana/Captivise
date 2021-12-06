@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<div class="container mt-5">
+		<div class="row justify-content-center">
+			<div class="col-xs-12 col-sm-12 col-md-6">
+				<h2 class="mb-5">
+					{{page_content.block_1.title}}					
+				</h2>
+
+				<div class="account-ready">
+					{{page_content.block_1.content |safe}}
+
+					<div class="accordion">
+						<h3>{{page_content.block_2.title}}	</h3>
+
+						<div>
+							{{page_content.block_2.content |safe}}
+						</div>
+
+						<h3>{{page_content.block_3.title}}</h3>
+
+						<div>
+							{{page_content.block_3.content |safe}}
+						</div>
+
+						<h3>{{page_content.block_4.title}}</h3>
+
+						<div>
+							{{page_content.block_4.content |safe}}
+						</div>
+
+						<h3>{{page_content.block_5.title}}</h3>
+
+						<div>
+							{{page_content.block_5.content |safe}}
+						</div>
+					</div>
+					{{page_content.block_6.content |safe}}
+					
+
+					<form class="agree" method="POST">
+						{% csrf_token %}
+						{{ form.terms_and_conditions_accepted.errors }}
+						{{ form.terms_and_conditions_accepted }}
+						<label for="{{ form.terms_and_conditions_accepted.id_for_label }}">
+							I agree to Captivise
+							<a href="{% url 'website_terms_and_conditions' %}">Terms &amp; Conditions</a>
+						</label>
+
+						<button class="btn btn-block" type="submit">Check My Google Ads Account</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock content %}

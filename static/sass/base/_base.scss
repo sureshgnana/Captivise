@@ -1,0 +1,26 @@
+html,
+body {
+	margin: 0;
+	padding: 0;
+	font-size: 100%;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+a {
+	color: $link_colour;
+
+	&:hover {
+		color: $link_colour--hover;
+	}
+}
+
+img {
+	max-width: 100%;
+	width: 100%;
+	height: auto;
+	display: block;
+	margin-bottom: 1.25em;
+}

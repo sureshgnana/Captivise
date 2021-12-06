@@ -1,0 +1,420 @@
+.accounts {
+	.btn-container {
+		@include clearfix;
+		margin-bottom: 1.25em;
+	}
+
+	.old-payment-reinstated {
+		font-size: 0.8em;
+	}
+
+	max-width: 512px;
+	margin: 0 auto 30px;
+
+	.account-details {
+		padding: 30px 0;
+		float: left;
+		width: 100%;
+
+		+ .account-details {
+			border-top: 1px solid $color_main_grey;
+		}
+	}
+
+	li {
+		list-style: none;
+	}
+
+	dl {
+		margin-bottom: 30px;
+		overflow: hidden;
+		border-top: 1px solid $color_main_grey;
+	}
+
+	dd,
+	dt {
+		width: 50%;
+		float: left;
+		margin: 0;
+		padding: 10px 0;
+		border-bottom: 1px solid $color_main_grey;
+	}
+
+	dt {
+		font-weight: bold;
+	}
+
+	form {
+		overflow: hidden;
+		margin-bottom: 30px;
+
+
+		label {
+			display: block;
+			/*
+			height: 40px;
+			line-height: 40px; */
+			padding-top: 15px;
+			padding-bottom: 10px;
+
+			small {
+				padding-top: 5px;
+				display: block;
+				color: $grey_3;
+			}
+		}
+
+		select {
+			width: 100%;
+		}
+
+		input[type='text'],
+		input[type='email'],
+		input[type='password'],
+		input[type='number'] {
+			display: block;
+			width: 100%;
+			border: 1px solid $color_main_grey;
+			color: #000;
+			height: 40px;
+			line-height: 40px;
+			padding: 0 20px;
+			font-family: 'Open Sans', sans-serif;
+			position: relative;
+
+			&:focus {
+				border-color: #000;
+				color: #000;
+				outline: 0;
+			}
+		}
+
+		input[type='checkbox'] {
+			width: 1px;
+			height: 1px;
+			opacity: 0;
+			position: absolute;
+			top: 0;
+			left: 0;
+
+			+ label {
+				line-height: 40px;
+				height: 40px;
+				padding: 0;
+
+				&:before {
+					content: '';
+					display: block;
+					width: 20px;
+					height: 20px;
+					line-height: 20px;
+					font-size: 20px;
+					border: 1px solid $color_main_grey;
+					float: left;
+					margin-right: 10px;
+					margin-top: 10px;
+					text-align: center;
+				}
+
+				&:hover {
+					cursor: pointer;
+
+					&:before {
+						border-color: #000;
+					}
+				}
+			}
+
+			&:checked {
+				+ label {
+					&:before {
+						content: '×';
+						color: $brand_primary-colour;
+					}
+				}
+			}
+		}
+
+		.errors {
+			input[type='text'],
+			input[type='password'] {
+				border-color: $color_error;
+			}
+		}
+
+		.non-field-errors {
+			color: $color_error;
+			margin: 15px 0 0;
+			padding: 12px 20px;
+			background-color: rgba($color_error,0.1);
+		}
+
+
+		.hideShowPassword-toggle {
+			position: absolute;
+			top: 50%;
+			border: none;
+			background: url('../svgs/icon-password_eye.svg') center center no-repeat;
+			background-size: 24px 24px;
+			opacity: 0.5;
+			height: 0;
+			padding: 40px 0 0;
+			width: 40px;
+			overflow: hidden;
+			display: block;
+
+			&[aria-pressed='true'] {
+				opacity: 1;
+			}
+		}
+
+		.field-wrapper {
+			&:last-of-type {
+				margin-bottom: 30px;
+			}
+		}
+	}
+
+	.btn {
+		display: block;
+		border: 1px solid $brand_primary-colour;
+		height: 40px;
+		line-height: 40px;
+		padding: 0 20px;
+		text-decoration: none;
+		background-color: #fff;
+		color: $brand_primary-colour;
+		font-family: 'Open Sans', sans-serif;
+		text-align: center;
+		width: 100%;
+		float: left;
+		outline: 0;
+		cursor: pointer;
+
+		+ .btn {
+			margin-top: 10px;
+		}
+
+		@include breakpoint(tablet) {
+
+			+ .btn {
+				margin-left: 10px;
+				margin-top: 0;
+			}
+
+		}
+
+		&.single {
+			width: 100%;
+		}
+
+		&:hover {
+			background-color: $brand_primary-colour;
+			color: #fff;
+		}
+	}
+
+	@include breakpoint(tablet) {
+
+		.btn {
+			width: 251px;
+		}
+	}
+
+	div.selector {
+		width: 100%!important // fixes the inline 572 width on #uniform-id_cycle_period_days
+	}
+}
+
+.conv-title {
+	display: inline-block;
+	width: 100%;
+	margin: 20px 0 20px 0;
+	text-align: center;
+	color: $brand_primary-colour;
+	font-weight: 700;
+}
+
+#id_is_managed {
+	margin: 0;
+	padding: 0;
+}
+
+#id_conversion_type {
+	float: left;
+	position: relative;
+	width: 100%;
+	margin-bottom: 30px;
+	margin-left: 0;
+	padding-left: 0;
+}
+
+#id_target_conversion_margin {
+	right: 0;
+}
+
+.conversion-type {
+	width: 48%;
+	display: inline-block;
+	float: left;
+	position: relative;
+	text-align: center;
+	margin-left: 0;
+	padding-left: 0;
+
+	.inner {
+		padding: 1em;
+		display: flex;
+		height: 270px;
+
+		p {
+			color: #333;
+		}
+	}
+
+	span {
+		display: inline-block;
+		width: 100%;
+		font-weight: 700;
+		margin: 10px 0 15px 0;
+		color: $brand_primary-colour;
+	}
+
+	.btn {
+		width: 100%;
+		background-color: #fff;
+		border: 1px solid $brand_primary-colour;
+		color: $brand_primary-colour;
+	}
+}
+
+.id_conversion_type_0 {
+
+	margin-right: 4%;
+
+	.inner {
+		border: 1px solid $brand_primary-colour;
+		background-color: rgba($brand_primary-colour, 0.2);
+	}
+}
+
+#id_conversion_type_0:checked .inner {
+	background-color: orange;
+}
+
+.id_conversion_type_1 {
+
+	.inner {
+		background-color: rgba($brand_primary-colour, 0.4);
+		border: 1px solid $brand_primary-colour;
+	}
+
+	.btn {
+		border: 1px solid #19A175;
+	}
+}
+
+#id_target_cpa {
+	margin: 0 0 30px 0;
+}
+
+.conversion-type {
+		input[type="radio"] {
+	    display:none;
+	}
+
+	label {
+	    color: #999;
+	    font-family:Arial, sans-serif;
+	    font-size:14px;
+	}
+
+	input[type="radio"] + span {
+	    display:inline-block;
+	    width:40px;
+	    height:40px;
+	    margin:-1px 4px 0 0;
+	    vertical-align:middle;
+	    cursor:pointer;
+	    -moz-border-radius:  50%;
+	    border-radius:  50%;
+	    border: 1px solid #168F68;
+	}
+
+	input[type="radio"] + span {
+	     background-color: #fff;
+	}
+
+	input[type="radio"]:checked + span{
+	     background-color: #20b786;
+	     background-image: url('../svgs/white-tick.svg');
+	     background-repeat: no-repeat;
+	     background-size: 20px 20px;
+	     background-position: 50% 50%;
+	}
+
+	input[type="radio"] + span,
+	input[type="radio"]:checked + span {
+	  -webkit-transition:background-color 0.4s linear;
+	  -o-transition:background-color 0.4s linear;
+	  -moz-transition:background-color 0.4s linear;
+	  transition:background-color 0.4s linear;
+	}
+}
+
+.left,
+.right {
+	width: 49%;
+	display: inline-block;
+	position: relative;
+}
+
+.left {
+	float: left;
+	position: relative;
+}
+
+.right {
+	text-align: right;
+	float: right;
+
+	label {
+		float: right;
+	}
+}
+
+.bid-explainer {
+	width: 100%;
+	display: inline-block;
+}
+
+.account-ready {
+
+	.accordion {
+		position: relative;
+
+		.ui-accordion-header-collapsed {
+			&:after {
+				content: '';
+				position: absolute;
+				right: 0;
+				background: url('../svgs/acc-down.svg') center center no-repeat;
+				background-size: 25px 25px;
+				width: 30px;
+				height: 30px;
+			}
+		}
+
+		.ui-accordion-header-active {
+			&:after {
+				content: '';
+				position: absolute;
+				right: 0;
+				background: url('../svgs/acc-up.svg') center center no-repeat;
+				background-size: 25px 25px;
+				width: 30px;
+				height: 30px;
+			}
+		}
+	}
+}

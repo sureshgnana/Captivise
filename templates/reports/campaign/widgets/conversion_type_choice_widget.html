@@ -1,0 +1,18 @@
+<div class="conversion-type {{ widget.attrs.id }}">
+
+    <div class="inner">
+
+        <label{% if widget.attrs.id %} for="{{ widget.attrs.id }}"{% endif %}>
+
+            {% if wrap_label %}
+                {% include "django/forms/widgets/input.html" %}
+            {% endif %}
+
+            <span></span><div class="conv-title">{{ widget.label }}</div>            
+        </label>
+
+        {% if not wrap_label %}
+            {% include "django/forms/widgets/input.html" %}
+        {% endif %}
+    </div>
+</div>

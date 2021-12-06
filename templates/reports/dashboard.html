@@ -1,0 +1,150 @@
+{% extends "authenticated.html" %}
+
+{% block content %}
+<div class="container-fluid mt-5 px-6">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12">
+			<div class="row mb-4">
+                <div class="col-md-8 pl-0">
+                    <h2>Dashboard</h2>                    
+                </div>
+                <div class="col-md-4 pl-0">
+                    <div class="float-lg-right">
+                        <a class="btn" href="{% url 'reports_campaign_list' %}">Automate Tasks</a>
+                    </div>                   
+                </div>
+                            
+                <div class="col-md-12">
+                    <hr>  
+                    <div class="row">	
+                            <div class="col-sm-12 col-md-12 col-lg-4 pl-0"><h3>Conversion Performance</h3></div>                            
+                                {% if has_adwords_account %}
+                                    {% include 'reports/conversions_chart.html' with metrics=metrics date_range_form=date_range_form %}
+                                {% else %}
+                                    {% include 'reports/no_linked_adwords_account.html' %}
+                                {% endif %}                        
+                    </div>
+                </div>
+            </div>
+                <hr>
+                <div class="dashboard_hud">  
+
+                    <div class="row">                        				
+                        <div class="col-md-2 pl-0" add-class-on-xs="pb-3">
+                            <a class="rlink border-bottom-0 {% if active_menu.dashboard_today %}btn-active{% endif %} " href="{% url 'reports_dashboard' %}?range=today">Today</a>
+                        </div>
+                        <div class="col-md-2 pl-0">
+                            <a class="rlink border-bottom-0 {% if active_menu.dashboard_week %}btn-active{% endif %}" href="{% url 'reports_dashboard' %}?range=week">Week</a>
+                        </div>
+                        <div class="col-md-2 pl-0">
+                            <a class="rlink border-bottom-0 {% if active_menu.dashboard_month %}btn-active{% endif %}" href="{% url 'reports_dashboard' %}?range=month">Month</a>
+                        </div>		
+                        <div class="col-md-12 border-bottom-green mb-4"></div>		
+                    </div>
+
+                    <div class="row">	
+                        <div class="col-md-12 pl-0">
+                            <h2 class="mb-4">Keyword Adjustments</h2>
+                        </div>                        		
+                    </div>
+                    <div class="row">	
+                        <div class="col-sm-6 col-md-6 col-lg-3 pl-0 pb-2">
+                            <div class="k-box k-box-green">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <p class="kcount">
+                                            {% if decreased_bid_count %}
+                                                {{ decreased_bid_count }}
+                                            {% else %}
+                                                0
+                                            {% endif %}
+                                        </p>
+                                        <p class="kmessage">Decreased Bids</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-6 col-lg-3 pl-0 pb-2">
+                            <div class="k-box k-box-red">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <p class="kcount">                                
+                                            {% if increased_bid_count %}
+                                                {{ increased_bid_count }}
+                                            {% else %}
+                                                0
+                                            {% endif %}
+                                        </p>
+                                        <p class="kmessage">Increased Bids</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-6 col-lg-3 pl-0 pb-2">
+                            <div class="k-box k-box-blue">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <p class="kcount">
+                                            {% if unchanged_bid_count %}
+                                                {{ unchanged_bid_count }}
+                                            {% else %}
+                                                0
+                                            {% endif %}
+                                        </p>
+                                        <p class="kmessage">Unchanged Bids</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-6 col-lg-3 pl-0 pb-2 pr-0 m-pr">
+                            <div class="k-box k-box-grey">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <p class="kcount">
+                                            {% if paused_keywords_count %}
+                                                {{ paused_keywords_count }}
+                                            {% else %}
+                                                0
+                                            {% endif %}
+                                        </p>
+                                        <p class="kmessage">Paused Keywords</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-12 pl-0 mt-3">
+                            <h2><a href="{% url 'report_scripts_results' %}" class="linkhead">Automated Tasks Results</a>  </h2>                          
+                        </div> 
+                        {% if script_results %}
+                            {% for script_result in script_results %}
+                                <div class="col-sm-6 col-md-6 col-lg-3 pl-0 pb-2">
+                                    <div class="k-box-atask k-box-blue-atask">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <a href="{% url 'report_scripts_results_detail' script_result.3 %}">
+                                                <p class="kcount">
+                                                    {{script_result.2}}
+                                                </p>
+                                                <p class="kmessage">{{script_result.1}}</p>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>      
+                            
+                            {% endfor %}
+                        {% else %}
+                        <div class="col-md-12 pl-0"><p>No changes available within the chosen time period. <a href="{% url 'report_scripts_results' %}"> Click Here to View Change History.</a></p></div>
+                        {% endif %}
+                    
+                    </div>
+
+                </div>
+            </div>
+    </div>
+</div>
+{% endblock content %}
+
